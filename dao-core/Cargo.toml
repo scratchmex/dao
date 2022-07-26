@@ -1,8 +1,10 @@
 [package]
+edition = "2021"
 name = "dao-core"
 version = "0.1.0"
-edition = "2021"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
+clipboard-win = "4.4.2"
+image = "0.24.3"
