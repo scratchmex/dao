@@ -1,19 +1,31 @@
 <script setup lang="ts">
 // This starter template is using Vue 3 <script setup> SFCs
 // Check out https://vuejs.org/api/sfc-script-setup.html#script-setup
-import HelloWorld from './components/HelloWorld.vue'
+import { ref } from "vue";
+import { invoke } from "@tauri-apps/api/tauri";
+
+const text = ref<string>("");
+
+const setClipboard = async () => {
+  await invoke("set_clipboard_text", { text: text.value });
+};
+
+const getClipboard = async () => {
+  const val: string = await invoke("get_clipboard_text");
+  text.value = val;
+};
 </script>
 
 <template>
-  <div>
-    <a href="https://vitejs.dev" target="_blank">
-      <img src="/vite.svg" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://vuejs.org/" target="_blank">
-      <img src="./assets/vue.svg" class="logo vue" alt="Vue logo" />
-    </a>
+  <textarea v-model="text" name="text" cols="30" rows="10"></textarea>
+  <div style="display: flex">
+    <button @click="getClipboard" style="background-color: green">
+      Get clipboard
+    </button>
+    <button @click="setClipboard" style="background-color: red">
+      Set clipboard
+    </button>
   </div>
-  <HelloWorld msg="Vite + Vue!" />
 </template>
 
 <style scoped>
