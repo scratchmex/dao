@@ -2,4 +2,5 @@
 
 members = [
   "dao-core",
+  "dao-ui/src-tauri"
 ]
